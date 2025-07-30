@@ -17,6 +17,8 @@ struct Args {
     model: String,
     #[arg(short, default_value_t = 1)]
     n: usize,
+    #[arg(short, long)]
+    db: String,
 }
 
 
@@ -29,7 +31,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // * EMBEDD *
     let embedding = onnx::invoke(&args.model, tokens)?;
     // * RETRIEVE *
-    let mut database = retrieve()?;
+    let mut database = retrieve(&args.db)?;
     // * SCORE *
     for entry in database.iter_mut() {
         let score = func::cosine_similarity(&embedding, &entry.embedding);

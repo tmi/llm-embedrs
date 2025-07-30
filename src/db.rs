@@ -34,14 +34,14 @@ impl TryFrom<&Row<'_>> for Entry {
         let id: String = row.get(0).unwrap();
         let raw: Vec<u8> = row.get(1).unwrap();
         let embedding: Vec<f32> = blob2f32(&raw).unwrap();
-        let content: String = row.get(2).unwrap();
+        let content: String = row.get(2).unwrap_or("".to_string());
         let score: f32 = 0.;
         Ok(Entry { id, embedding, content, score })
     }
 }
 
-pub fn retrieve() -> Result<Vec<Entry>, Box<dyn std::error::Error>> {
-    let conn = Connection::open("/home/vojta/bin/embeddings/knowledgebase.1.db")?;
+pub fn retrieve(db_path: &str) -> Result<Vec<Entry>, Box<dyn std::error::Error>> {
+    let conn = Connection::open(db_path)?;
     let mut stmt = conn.prepare("select id, embedding, content from embeddings")?;
     let iter = stmt.query_map([], |row| { Entry::try_from(row) })?;
     let col: Vec<Entry> = iter.map(|entry| entry.unwrap()).collect();

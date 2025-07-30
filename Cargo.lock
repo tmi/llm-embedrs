@@ -625,6 +625,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd945864f07fe9f5371a27ad7b52a172b4b499999f1d97574c9fa68373937e12"
 
 [[package]]
+name = "llm-embedrs"
+version = "0.1.0"
+dependencies = [
+ "byteorder",
+ "clap",
+ "ndarray",
+ "ort",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "tokenizers",
+]
+
+[[package]]
 name = "log"
 version = "0.4.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -805,20 +819,6 @@ checksum = "c7f86c6eef3d6df15f23bcfb6af487cbd2fed4e5581d58d5bf1f5f8b7f6727dc"
 dependencies = [
  "cc",
  "pkg-config",
-]
-
-[[package]]
-name = "llm-embedrs"
-version = "0.1.0"
-dependencies = [
- "byteorder",
- "clap",
- "ndarray",
- "ort",
- "rusqlite",
- "serde",
- "serde_json",
- "tokenizers",
 ]
 
 [[package]]
